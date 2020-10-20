@@ -36,18 +36,19 @@ class CalendarsController < ApplicationController
       plan = plans.map do |plan|
         today_plans.push(plan.plan) if plan.date == @todays_date + x
       end
-      wday_num =  Date.today.wday    #Date.today.wdayを利用して添字となる数値を得る
+      wday_num =  Date.today.wday + x #Date.today.wdayを利用して添字となる数値を得る
       #もしもwday_numが7以上であれば、7を引く（リセット機能）
-      if wday_num = 7≧ #条件式を記述
+      if wday_num >= 7 
         wday_num = wday_num - 7
-      end_date + x).month, date: (@todays_date+x).day, plans: today_plans, wday: wdaysから値を取り出す記述}
+      end
+      days = { month: (@todays_date + x).month, date: (@todays_date+x).day, plans: (today_plans), wdays: wdays[wday_num]}
       @week_days.push(days)
-      days = { month: (@todays
     end
   end
 end
 
+# wdays = ['(日)','(月)','(火)','(水)','(木)','(金)','(土)']
 
-
-# Date.today.wday　0,1,2,3,4,5,6　　
+# Date.today.wday　0,1,2,3,4,5,6　　,7,8　
 # 今日は10月20日（火)Date.today.wdayで取れる値は？→2
+#条件式を記述
