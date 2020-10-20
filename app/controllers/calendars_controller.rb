@@ -2,7 +2,7 @@ class CalendarsController < ApplicationController
 
   # １週間のカレンダーと予定が表示されるページ
   def index
-    getWeek
+    get_week
     @plan = Plan.new
   end
 
@@ -18,8 +18,10 @@ class CalendarsController < ApplicationController
     params.require(:plan).permit(:date, :plan)
   end
 
-  def getWeek
-    wdays = ['(日)','(月)','(火)','(水)','(木)','(金)','(土)']
+
+
+  def get_week
+    wdays = ['(日)','(月)','(火)','(水)','(木)','(金)','(土)']#wdays[1]=>'(月)'
 
     # Dateオブジェクトは、日付を保持しています。下記のように`.today.day`とすると、今日の日付を取得できます。
     @todays_date = Date.today
@@ -34,9 +36,18 @@ class CalendarsController < ApplicationController
       plan = plans.map do |plan|
         today_plans.push(plan.plan) if plan.date == @todays_date + x
       end
-      days = { :month => (@todays_date + x).month, :date => (@todays_date+x).day, :plans => today_plans}
+      wday_num =  Date.today.wday    #Date.today.wdayを利用して添字となる数値を得る
+      #もしもwday_numが7以上であれば、7を引く（リセット機能）
+      if wday_num = 7≧ #条件式を記述
+        wday_num = wday_num - 7
+      end_date + x).month, date: (@todays_date+x).day, plans: today_plans, wday: wdaysから値を取り出す記述}
       @week_days.push(days)
+      days = { month: (@todays
     end
-
   end
 end
+
+
+
+# Date.today.wday　0,1,2,3,4,5,6　　
+# 今日は10月20日（火)Date.today.wdayで取れる値は？→2
